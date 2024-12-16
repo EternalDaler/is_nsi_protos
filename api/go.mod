@@ -1,4 +1,4 @@
-module github.com/EternalDaler/is_nsi_protos
+module github.com/EternalDaler/is_nsi_protos/api
 
 go 1.23.4
 
