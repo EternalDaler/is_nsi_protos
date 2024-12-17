@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	NormalizeService_Search_FullMethodName = "/main.NormalizeService/Search"
+	NormalizeService_Normalize_FullMethodName = "/main.NormalizeService/Normalize"
 )
 
 // NormalizeServiceClient is the client API for NormalizeService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NormalizeServiceClient interface {
-	Search(ctx context.Context, in *NormalizeRequest, opts ...grpc.CallOption) (*NormalizeResponse, error)
+	Normalize(ctx context.Context, in *NormalizeRequest, opts ...grpc.CallOption) (*NormalizeResponse, error)
 }
 
 type normalizeServiceClient struct {
@@ -37,10 +37,10 @@ func NewNormalizeServiceClient(cc grpc.ClientConnInterface) NormalizeServiceClie
 	return &normalizeServiceClient{cc}
 }
 
-func (c *normalizeServiceClient) Search(ctx context.Context, in *NormalizeRequest, opts ...grpc.CallOption) (*NormalizeResponse, error) {
+func (c *normalizeServiceClient) Normalize(ctx context.Context, in *NormalizeRequest, opts ...grpc.CallOption) (*NormalizeResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(NormalizeResponse)
-	err := c.cc.Invoke(ctx, NormalizeService_Search_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, NormalizeService_Normalize_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *normalizeServiceClient) Search(ctx context.Context, in *NormalizeReques
 // All implementations must embed UnimplementedNormalizeServiceServer
 // for forward compatibility.
 type NormalizeServiceServer interface {
-	Search(context.Context, *NormalizeRequest) (*NormalizeResponse, error)
+	Normalize(context.Context, *NormalizeRequest) (*NormalizeResponse, error)
 	mustEmbedUnimplementedNormalizeServiceServer()
 }
 
@@ -62,8 +62,8 @@ type NormalizeServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedNormalizeServiceServer struct{}
 
-func (UnimplementedNormalizeServiceServer) Search(context.Context, *NormalizeRequest) (*NormalizeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
+func (UnimplementedNormalizeServiceServer) Normalize(context.Context, *NormalizeRequest) (*NormalizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Normalize not implemented")
 }
 func (UnimplementedNormalizeServiceServer) mustEmbedUnimplementedNormalizeServiceServer() {}
 func (UnimplementedNormalizeServiceServer) testEmbeddedByValue()                          {}
@@ -86,20 +86,20 @@ func RegisterNormalizeServiceServer(s grpc.ServiceRegistrar, srv NormalizeServic
 	s.RegisterService(&NormalizeService_ServiceDesc, srv)
 }
 
-func _NormalizeService_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _NormalizeService_Normalize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(NormalizeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NormalizeServiceServer).Search(ctx, in)
+		return srv.(NormalizeServiceServer).Normalize(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: NormalizeService_Search_FullMethodName,
+		FullMethod: NormalizeService_Normalize_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NormalizeServiceServer).Search(ctx, req.(*NormalizeRequest))
+		return srv.(NormalizeServiceServer).Normalize(ctx, req.(*NormalizeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,8 +112,8 @@ var NormalizeService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*NormalizeServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Search",
-			Handler:    _NormalizeService_Search_Handler,
+			MethodName: "Normalize",
+			Handler:    _NormalizeService_Normalize_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

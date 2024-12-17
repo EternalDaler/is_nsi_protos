@@ -62,5 +62,5 @@ message NormalizeResponse{
 }
 
 service NormalizeService {
-  rpc Search(NormalizeRequest) returns (NormalizeResponse);
+  rpc Normalize(NormalizeRequest) returns (NormalizeResponse);
 }
