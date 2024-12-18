@@ -119,3 +119,105 @@ var NormalizeService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "proto/main.proto",
 }
+
+const (
+	NormalizePyService_GetDuplicates_FullMethodName = "/main.NormalizePyService/GetDuplicates"
+)
+
+// NormalizePyServiceClient is the client API for NormalizePyService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type NormalizePyServiceClient interface {
+	GetDuplicates(ctx context.Context, in *DuplicateRequest, opts ...grpc.CallOption) (*DuplicateResponse, error)
+}
+
+type normalizePyServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewNormalizePyServiceClient(cc grpc.ClientConnInterface) NormalizePyServiceClient {
+	return &normalizePyServiceClient{cc}
+}
+
+func (c *normalizePyServiceClient) GetDuplicates(ctx context.Context, in *DuplicateRequest, opts ...grpc.CallOption) (*DuplicateResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DuplicateResponse)
+	err := c.cc.Invoke(ctx, NormalizePyService_GetDuplicates_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// NormalizePyServiceServer is the server API for NormalizePyService service.
+// All implementations must embed UnimplementedNormalizePyServiceServer
+// for forward compatibility.
+type NormalizePyServiceServer interface {
+	GetDuplicates(context.Context, *DuplicateRequest) (*DuplicateResponse, error)
+	mustEmbedUnimplementedNormalizePyServiceServer()
+}
+
+// UnimplementedNormalizePyServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedNormalizePyServiceServer struct{}
+
+func (UnimplementedNormalizePyServiceServer) GetDuplicates(context.Context, *DuplicateRequest) (*DuplicateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDuplicates not implemented")
+}
+func (UnimplementedNormalizePyServiceServer) mustEmbedUnimplementedNormalizePyServiceServer() {}
+func (UnimplementedNormalizePyServiceServer) testEmbeddedByValue()                            {}
+
+// UnsafeNormalizePyServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to NormalizePyServiceServer will
+// result in compilation errors.
+type UnsafeNormalizePyServiceServer interface {
+	mustEmbedUnimplementedNormalizePyServiceServer()
+}
+
+func RegisterNormalizePyServiceServer(s grpc.ServiceRegistrar, srv NormalizePyServiceServer) {
+	// If the following call pancis, it indicates UnimplementedNormalizePyServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&NormalizePyService_ServiceDesc, srv)
+}
+
+func _NormalizePyService_GetDuplicates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DuplicateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NormalizePyServiceServer).GetDuplicates(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NormalizePyService_GetDuplicates_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NormalizePyServiceServer).GetDuplicates(ctx, req.(*DuplicateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// NormalizePyService_ServiceDesc is the grpc.ServiceDesc for NormalizePyService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var NormalizePyService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "main.NormalizePyService",
+	HandlerType: (*NormalizePyServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetDuplicates",
+			Handler:    _NormalizePyService_GetDuplicates_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/main.proto",
+}

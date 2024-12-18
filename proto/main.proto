@@ -64,3 +64,18 @@ message NormalizeResponse{
 service NormalizeService {
   rpc Normalize(NormalizeRequest) returns (NormalizeResponse);
 }
+
+
+message DuplicateRequest{
+  repeated Item items = 1;
+}
+
+message DuplicateResponse {
+  string message = 1;
+  int32 total_items = 2;
+  repeated string duplicates = 3;
+}
+
+service NormalizePyService{
+  rpc GetDuplicates(DuplicateRequest) returns (DuplicateResponse);
+}
