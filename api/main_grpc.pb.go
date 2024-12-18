@@ -121,7 +121,8 @@ var NormalizeService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	NormalizePyService_GetDuplicates_FullMethodName = "/main.NormalizePyService/GetDuplicates"
+	NormalizePyService_GetDuplicates_FullMethodName                             = "/main.NormalizePyService/GetDuplicates"
+	NormalizePyService_FirstSingularNoun_And_NoGrammaticalErrors_FullMethodName = "/main.NormalizePyService/FirstSingularNoun_And_NoGrammaticalErrors"
 )
 
 // NormalizePyServiceClient is the client API for NormalizePyService service.
@@ -129,6 +130,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NormalizePyServiceClient interface {
 	GetDuplicates(ctx context.Context, in *DuplicateRequest, opts ...grpc.CallOption) (*DuplicateResponse, error)
+	FirstSingularNoun_And_NoGrammaticalErrors(ctx context.Context, in *FirstSingularNoun_And_NoGrammaticalErrorsRequest, opts ...grpc.CallOption) (*FirstSingularNoun_And_NoGrammaticalErrorsResponse, error)
 }
 
 type normalizePyServiceClient struct {
@@ -149,11 +151,22 @@ func (c *normalizePyServiceClient) GetDuplicates(ctx context.Context, in *Duplic
 	return out, nil
 }
 
+func (c *normalizePyServiceClient) FirstSingularNoun_And_NoGrammaticalErrors(ctx context.Context, in *FirstSingularNoun_And_NoGrammaticalErrorsRequest, opts ...grpc.CallOption) (*FirstSingularNoun_And_NoGrammaticalErrorsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FirstSingularNoun_And_NoGrammaticalErrorsResponse)
+	err := c.cc.Invoke(ctx, NormalizePyService_FirstSingularNoun_And_NoGrammaticalErrors_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NormalizePyServiceServer is the server API for NormalizePyService service.
 // All implementations must embed UnimplementedNormalizePyServiceServer
 // for forward compatibility.
 type NormalizePyServiceServer interface {
 	GetDuplicates(context.Context, *DuplicateRequest) (*DuplicateResponse, error)
+	FirstSingularNoun_And_NoGrammaticalErrors(context.Context, *FirstSingularNoun_And_NoGrammaticalErrorsRequest) (*FirstSingularNoun_And_NoGrammaticalErrorsResponse, error)
 	mustEmbedUnimplementedNormalizePyServiceServer()
 }
 
@@ -166,6 +179,9 @@ type UnimplementedNormalizePyServiceServer struct{}
 
 func (UnimplementedNormalizePyServiceServer) GetDuplicates(context.Context, *DuplicateRequest) (*DuplicateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDuplicates not implemented")
+}
+func (UnimplementedNormalizePyServiceServer) FirstSingularNoun_And_NoGrammaticalErrors(context.Context, *FirstSingularNoun_And_NoGrammaticalErrorsRequest) (*FirstSingularNoun_And_NoGrammaticalErrorsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FirstSingularNoun_And_NoGrammaticalErrors not implemented")
 }
 func (UnimplementedNormalizePyServiceServer) mustEmbedUnimplementedNormalizePyServiceServer() {}
 func (UnimplementedNormalizePyServiceServer) testEmbeddedByValue()                            {}
@@ -206,6 +222,24 @@ func _NormalizePyService_GetDuplicates_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NormalizePyService_FirstSingularNoun_And_NoGrammaticalErrors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FirstSingularNoun_And_NoGrammaticalErrorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NormalizePyServiceServer).FirstSingularNoun_And_NoGrammaticalErrors(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NormalizePyService_FirstSingularNoun_And_NoGrammaticalErrors_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NormalizePyServiceServer).FirstSingularNoun_And_NoGrammaticalErrors(ctx, req.(*FirstSingularNoun_And_NoGrammaticalErrorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NormalizePyService_ServiceDesc is the grpc.ServiceDesc for NormalizePyService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -216,6 +250,10 @@ var NormalizePyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDuplicates",
 			Handler:    _NormalizePyService_GetDuplicates_Handler,
+		},
+		{
+			MethodName: "FirstSingularNoun_And_NoGrammaticalErrors",
+			Handler:    _NormalizePyService_FirstSingularNoun_And_NoGrammaticalErrors_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

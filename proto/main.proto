@@ -76,6 +76,23 @@ message DuplicateResponse {
   repeated string duplicates = 3;
 }
 
+message Description {
+    string gram_morph_error = 1;
+    string first_noun_error = 2;
+}
+
+message FirstSingularNoun_And_NoGrammaticalErrorsResponse{
+  string corrected_name = 1;
+  string gram_morph_rule = 2;
+  string first_noun_rule = 3;
+  Description description = 4;
+}
+
+message FirstSingularNoun_And_NoGrammaticalErrorsRequest{
+  string name = 1;
+}
+
 service NormalizePyService{
   rpc GetDuplicates(DuplicateRequest) returns (DuplicateResponse);
+  rpc FirstSingularNoun_And_NoGrammaticalErrors(FirstSingularNoun_And_NoGrammaticalErrorsRequest) returns (FirstSingularNoun_And_NoGrammaticalErrorsResponse);
 }
