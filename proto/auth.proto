@@ -44,11 +44,15 @@ message RefreshTokenResponse{
 message CheckTokenRequest{
   string access_token = 1;
 }
+message CheckTokenResponse{
+  uint32 user_id = 1;
+  string user_role = 2;
+}
 
 
 service AuthService{
   rpc Register(RegisterRequest) returns (Empty);
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
-  rpc CheckToken(CheckTokenRequest) returns (Empty);
+  rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
 }
