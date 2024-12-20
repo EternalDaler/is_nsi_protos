@@ -4,4 +4,7 @@ gen-python:
 	protoc --python_out=python proto/main.proto
 
 
-gen: gen-go gen-python
+gen-normalize: gen-go gen-python
+
+gen-auth:
+	protoc --go_out=. --go-grpc_out=. proto/auth.proto

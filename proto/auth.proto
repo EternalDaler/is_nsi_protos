@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package main;
+
+option go_package = "/auth";
+
+message User {
+  uint32     id = 1;
+  string     name = 2;
+  string     email = 3;
+  string     role = 4;
+  uint32     department_id = 5;
+  bool       is_active = 6;
+  string     password = 7;
+}
+
+
+message RegisterRequest{
+  string name = 1;
+  string email = 2;
+  uint32 department_id = 3;
+  bool   is_active = 4;
+  string password = 5;
+}
+
+message RegisterResponse{
+  string error = 1;
+}
+
+message LoginRequest{
+  string email = 1;
+  string password = 2;
+}
+message LoginResponse{
+  string access_token = 1;
+  string refresh_token = 2;
+  string error = 3;
+}
+
+message RefreshTokenRequest{
+  string refresh_token = 1;
+}
+message RefreshTokenResponse{
+  string error = 1;
+  string access_token = 2;
+}
+
+message CheckTokenRequest{
+  string access_token = 1;
+}
+message CheckTokenResponse{
+  string error = 1;
+}
+
+service AuthService{
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
+}
