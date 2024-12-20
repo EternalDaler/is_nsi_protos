@@ -51,7 +51,7 @@ message CheckTokenResponse{
 
 
 service AuthService{
-  rpc Register(RegisterRequest) returns (Empty);
+  rpc Register(RegisterRequest) returns (User);
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
   rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
