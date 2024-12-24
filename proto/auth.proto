@@ -49,10 +49,18 @@ message CheckTokenResponse{
   string user_role = 2;
 }
 
+message GenerateApiKeyRequest{
+  uint32 user_id = 1;
+}
+message GenerateApiKeyResponse{
+  string token = 1;
+}
+
 
 service AuthService{
   rpc Register(RegisterRequest) returns (User);
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
   rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
+  rpc GenerateApiKey(GenerateApiKeyRequest) returns (GenerateApiKeyResponse);
 }

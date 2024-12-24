@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_Register_FullMethodName     = "/main.AuthService/Register"
-	AuthService_Login_FullMethodName        = "/main.AuthService/Login"
-	AuthService_RefreshToken_FullMethodName = "/main.AuthService/RefreshToken"
-	AuthService_CheckToken_FullMethodName   = "/main.AuthService/CheckToken"
+	AuthService_Register_FullMethodName       = "/main.AuthService/Register"
+	AuthService_Login_FullMethodName          = "/main.AuthService/Login"
+	AuthService_RefreshToken_FullMethodName   = "/main.AuthService/RefreshToken"
+	AuthService_CheckToken_FullMethodName     = "/main.AuthService/CheckToken"
+	AuthService_GenerateApiKey_FullMethodName = "/main.AuthService/GenerateApiKey"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -33,6 +34,7 @@ type AuthServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
 	CheckToken(ctx context.Context, in *CheckTokenRequest, opts ...grpc.CallOption) (*CheckTokenResponse, error)
+	GenerateApiKey(ctx context.Context, in *GenerateApiKeyRequest, opts ...grpc.CallOption) (*GenerateApiKeyResponse, error)
 }
 
 type authServiceClient struct {
@@ -83,6 +85,16 @@ func (c *authServiceClient) CheckToken(ctx context.Context, in *CheckTokenReques
 	return out, nil
 }
 
+func (c *authServiceClient) GenerateApiKey(ctx context.Context, in *GenerateApiKeyRequest, opts ...grpc.CallOption) (*GenerateApiKeyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GenerateApiKeyResponse)
+	err := c.cc.Invoke(ctx, AuthService_GenerateApiKey_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -91,6 +103,7 @@ type AuthServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
 	CheckToken(context.Context, *CheckTokenRequest) (*CheckTokenResponse, error)
+	GenerateApiKey(context.Context, *GenerateApiKeyRequest) (*GenerateApiKeyResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -112,6 +125,9 @@ func (UnimplementedAuthServiceServer) RefreshToken(context.Context, *RefreshToke
 }
 func (UnimplementedAuthServiceServer) CheckToken(context.Context, *CheckTokenRequest) (*CheckTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckToken not implemented")
+}
+func (UnimplementedAuthServiceServer) GenerateApiKey(context.Context, *GenerateApiKeyRequest) (*GenerateApiKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateApiKey not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -206,6 +222,24 @@ func _AuthService_CheckToken_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_GenerateApiKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateApiKeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).GenerateApiKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_GenerateApiKey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).GenerateApiKey(ctx, req.(*GenerateApiKeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +262,10 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckToken",
 			Handler:    _AuthService_CheckToken_Handler,
+		},
+		{
+			MethodName: "GenerateApiKey",
+			Handler:    _AuthService_GenerateApiKey_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
