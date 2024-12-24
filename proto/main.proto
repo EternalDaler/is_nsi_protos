@@ -16,47 +16,26 @@ message Rule {
   repeated  string symbols = 4;
 }
 
+message RuleResult{
+  uint32 rule_id = 1;
+  bool failed = 2;
+  string description = 3;
+}
+message RuleSummary{
+  uint32 rule_id = 1;
+  bool failed_count = 2;
+}
 
 message Record{
   string id = 1;
   string original_name = 2;
   string cleaned_name = 3;
-  bool rule_1 = 4;
-  bool rule_2 = 5;
-  string rule_2_description = 6;
-  bool rule_3 = 7;
-  string rule_3_description = 8;
-  bool rule_4 = 9;
-  string rule_4_description = 10;
-  bool rule_5 = 11;
-  string rule_5_description = 12;
-  bool rule_6 = 13;
-  string rule_6_description = 14;
-  bool rule_7 = 15;
-  string rule_7_description = 16;
-  bool rule_8 = 17;
-  string rule_8_description = 18;
-  bool rule_9 = 19;
-  string rule_9_description = 20;
-  bool rule_10 = 21;
-  string rule_10_description = 22;
-  bool rule_17 = 23;
-  string rule_17_description = 24;
+  repeated RuleResult rules_results = 4;
 }
 
 message Summary {
   uint32 total_names = 1;
-  uint32 rule_1_false_count = 2;
-  uint32 rule_2_error_count = 3;
-  uint32 rule_3_error_count = 4;
-  uint32 rule_4_error_count = 5;
-  uint32 rule_5_error_count = 6;
-  uint32 rule_6_error_count = 7;
-  uint32 rule_7_error_count = 8;
-  uint32 rule_8_error_count = 9;
-  uint32 rule_9_error_count = 10;
-  uint32 rule_10_error_count = 11;
-  uint32 rule_17_error_count = 12;
+  repeated RuleSummary rules = 2;
 }
 
 message NormalizeRequest{
