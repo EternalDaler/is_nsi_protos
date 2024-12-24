@@ -9,6 +9,13 @@ message Item{
   string name = 2;
 }
 
+message Rule {
+  uint32 id = 1;
+  string name = 2;
+  string type = 3;
+  repeated  string symbols = 4;
+}
+
 
 message Record{
   string id = 1;
@@ -54,6 +61,7 @@ message Summary {
 
 message NormalizeRequest{
   repeated Item items = 1;
+  repeated Rule rules = 2;
 }
 
 message NormalizeResponse{
@@ -77,8 +85,8 @@ message DuplicateResponse {
 }
 
 message Description {
-    string gram_morph_error = 1;
-    string first_noun_error = 2;
+  string gram_morph_error = 1;
+  string first_noun_error = 2;
 }
 
 message FirstSingularNoun_And_NoGrammaticalErrorsResponse{
