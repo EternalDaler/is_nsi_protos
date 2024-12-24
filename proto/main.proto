@@ -23,7 +23,7 @@ message RuleResult{
 }
 message RuleSummary{
   uint32 rule_id = 1;
-  bool failed_count = 2;
+  uint32 failed_count = 2;
 }
 
 message Record{
