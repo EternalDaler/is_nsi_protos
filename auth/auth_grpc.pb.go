@@ -19,11 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_Register_FullMethodName       = "/main.AuthService/Register"
-	AuthService_Login_FullMethodName          = "/main.AuthService/Login"
-	AuthService_RefreshToken_FullMethodName   = "/main.AuthService/RefreshToken"
-	AuthService_CheckToken_FullMethodName     = "/main.AuthService/CheckToken"
-	AuthService_GenerateApiKey_FullMethodName = "/main.AuthService/GenerateApiKey"
+	AuthService_Register_FullMethodName          = "/main.AuthService/Register"
+	AuthService_Login_FullMethodName             = "/main.AuthService/Login"
+	AuthService_RefreshToken_FullMethodName      = "/main.AuthService/RefreshToken"
+	AuthService_CheckToken_FullMethodName        = "/main.AuthService/CheckToken"
+	AuthService_GenerateApiKey_FullMethodName    = "/main.AuthService/GenerateApiKey"
+	AuthService_SendEmailRecovery_FullMethodName = "/main.AuthService/SendEmailRecovery"
+	AuthService_RecoveryPassword_FullMethodName  = "/main.AuthService/RecoveryPassword"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -35,6 +37,8 @@ type AuthServiceClient interface {
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
 	CheckToken(ctx context.Context, in *CheckTokenRequest, opts ...grpc.CallOption) (*CheckTokenResponse, error)
 	GenerateApiKey(ctx context.Context, in *GenerateApiKeyRequest, opts ...grpc.CallOption) (*GenerateApiKeyResponse, error)
+	SendEmailRecovery(ctx context.Context, in *SendEmailRecoveryRequest, opts ...grpc.CallOption) (*Empty, error)
+	RecoveryPassword(ctx context.Context, in *RecoveryPasswordRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type authServiceClient struct {
@@ -95,6 +99,26 @@ func (c *authServiceClient) GenerateApiKey(ctx context.Context, in *GenerateApiK
 	return out, nil
 }
 
+func (c *authServiceClient) SendEmailRecovery(ctx context.Context, in *SendEmailRecoveryRequest, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, AuthService_SendEmailRecovery_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) RecoveryPassword(ctx context.Context, in *RecoveryPasswordRequest, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, AuthService_RecoveryPassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -104,6 +128,8 @@ type AuthServiceServer interface {
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
 	CheckToken(context.Context, *CheckTokenRequest) (*CheckTokenResponse, error)
 	GenerateApiKey(context.Context, *GenerateApiKeyRequest) (*GenerateApiKeyResponse, error)
+	SendEmailRecovery(context.Context, *SendEmailRecoveryRequest) (*Empty, error)
+	RecoveryPassword(context.Context, *RecoveryPasswordRequest) (*Empty, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -128,6 +154,12 @@ func (UnimplementedAuthServiceServer) CheckToken(context.Context, *CheckTokenReq
 }
 func (UnimplementedAuthServiceServer) GenerateApiKey(context.Context, *GenerateApiKeyRequest) (*GenerateApiKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateApiKey not implemented")
+}
+func (UnimplementedAuthServiceServer) SendEmailRecovery(context.Context, *SendEmailRecoveryRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendEmailRecovery not implemented")
+}
+func (UnimplementedAuthServiceServer) RecoveryPassword(context.Context, *RecoveryPasswordRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RecoveryPassword not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -240,6 +272,42 @@ func _AuthService_GenerateApiKey_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_SendEmailRecovery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendEmailRecoveryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).SendEmailRecovery(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_SendEmailRecovery_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).SendEmailRecovery(ctx, req.(*SendEmailRecoveryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_RecoveryPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RecoveryPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).RecoveryPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_RecoveryPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).RecoveryPassword(ctx, req.(*RecoveryPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +334,14 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateApiKey",
 			Handler:    _AuthService_GenerateApiKey_Handler,
+		},
+		{
+			MethodName: "SendEmailRecovery",
+			Handler:    _AuthService_SendEmailRecovery_Handler,
+		},
+		{
+			MethodName: "RecoveryPassword",
+			Handler:    _AuthService_RecoveryPassword_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -56,6 +56,15 @@ message GenerateApiKeyResponse{
   string token = 1;
 }
 
+message SendEmailRecoveryRequest{
+  uint32 user_id = 1;
+}
+
+message RecoveryPasswordRequest{
+  string key = 1;
+  string password = 2;
+}
+
 
 service AuthService{
   rpc Register(RegisterRequest) returns (User);
@@ -63,4 +72,6 @@ service AuthService{
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
   rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
   rpc GenerateApiKey(GenerateApiKeyRequest) returns (GenerateApiKeyResponse);
+  rpc SendEmailRecovery(SendEmailRecoveryRequest) returns (Empty);
+  rpc RecoveryPassword(RecoveryPasswordRequest) returns (Empty);
 }
