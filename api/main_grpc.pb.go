@@ -259,3 +259,105 @@ var NormalizePyService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "proto/main.proto",
 }
+
+const (
+	OkpdService_GetSimilar_FullMethodName = "/main.OkpdService/GetSimilar"
+)
+
+// OkpdServiceClient is the client API for OkpdService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type OkpdServiceClient interface {
+	GetSimilar(ctx context.Context, in *GetSimilarRequest, opts ...grpc.CallOption) (*GetSimilarResponse, error)
+}
+
+type okpdServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewOkpdServiceClient(cc grpc.ClientConnInterface) OkpdServiceClient {
+	return &okpdServiceClient{cc}
+}
+
+func (c *okpdServiceClient) GetSimilar(ctx context.Context, in *GetSimilarRequest, opts ...grpc.CallOption) (*GetSimilarResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetSimilarResponse)
+	err := c.cc.Invoke(ctx, OkpdService_GetSimilar_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OkpdServiceServer is the server API for OkpdService service.
+// All implementations must embed UnimplementedOkpdServiceServer
+// for forward compatibility.
+type OkpdServiceServer interface {
+	GetSimilar(context.Context, *GetSimilarRequest) (*GetSimilarResponse, error)
+	mustEmbedUnimplementedOkpdServiceServer()
+}
+
+// UnimplementedOkpdServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedOkpdServiceServer struct{}
+
+func (UnimplementedOkpdServiceServer) GetSimilar(context.Context, *GetSimilarRequest) (*GetSimilarResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSimilar not implemented")
+}
+func (UnimplementedOkpdServiceServer) mustEmbedUnimplementedOkpdServiceServer() {}
+func (UnimplementedOkpdServiceServer) testEmbeddedByValue()                     {}
+
+// UnsafeOkpdServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to OkpdServiceServer will
+// result in compilation errors.
+type UnsafeOkpdServiceServer interface {
+	mustEmbedUnimplementedOkpdServiceServer()
+}
+
+func RegisterOkpdServiceServer(s grpc.ServiceRegistrar, srv OkpdServiceServer) {
+	// If the following call pancis, it indicates UnimplementedOkpdServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&OkpdService_ServiceDesc, srv)
+}
+
+func _OkpdService_GetSimilar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSimilarRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OkpdServiceServer).GetSimilar(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OkpdService_GetSimilar_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OkpdServiceServer).GetSimilar(ctx, req.(*GetSimilarRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// OkpdService_ServiceDesc is the grpc.ServiceDesc for OkpdService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var OkpdService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "main.OkpdService",
+	HandlerType: (*OkpdServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetSimilar",
+			Handler:    _OkpdService_GetSimilar_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/main.proto",
+}

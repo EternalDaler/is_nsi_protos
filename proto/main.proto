@@ -83,3 +83,17 @@ service NormalizePyService{
   rpc GetDuplicates(DuplicateRequest) returns (DuplicateResponse);
   rpc FirstSingularNoun_And_NoGrammaticalErrors(FirstSingularNoun_And_NoGrammaticalErrorsRequest) returns (FirstSingularNoun_And_NoGrammaticalErrorsResponse);
 }
+
+message GetSimilarRequest{
+  string name = 1;
+  string category = 2;
+}
+
+message GetSimilarResponse{
+  repeated string okpds = 1;
+  repeated string okveds = 2;
+}
+
+service OkpdService{
+  rpc GetSimilar(GetSimilarRequest) returns (GetSimilarResponse);
+}
