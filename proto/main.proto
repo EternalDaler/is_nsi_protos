@@ -7,6 +7,7 @@ option go_package = "/api";
 message Item{
   string id = 1;
   string name = 2;
+  string category = 3;
 }
 
 message Rule {
@@ -79,7 +80,28 @@ message FirstSingularNoun_And_NoGrammaticalErrorsRequest{
   string name = 1;
 }
 
+message Catalogue {
+  string id = 1;
+  string name = 2;
+  repeated Item items = 3;
+}
+
+message Classifier {
+  string id = 1;
+  string name = 2;
+  repeated Catalogue catalogues = 3;
+}
+
+message NormalizeClassifierRequest {
+  Item item = 1;
+  Classifier classifier = 2;
+}
+message NormalizeClassifierResponse {
+  repeated string similar_ids = 1;
+}
+
 service NormalizePyService{
+  rpc NormalizeClassifier(NormalizeClassifierRequest) returns (NormalizeClassifierResponse);
   rpc GetDuplicates(DuplicateRequest) returns (DuplicateResponse);
   rpc FirstSingularNoun_And_NoGrammaticalErrors(FirstSingularNoun_And_NoGrammaticalErrorsRequest) returns (FirstSingularNoun_And_NoGrammaticalErrorsResponse);
 }

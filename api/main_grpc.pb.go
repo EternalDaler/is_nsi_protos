@@ -121,6 +121,7 @@ var NormalizeService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
+	NormalizePyService_NormalizeClassifier_FullMethodName                       = "/main.NormalizePyService/NormalizeClassifier"
 	NormalizePyService_GetDuplicates_FullMethodName                             = "/main.NormalizePyService/GetDuplicates"
 	NormalizePyService_FirstSingularNoun_And_NoGrammaticalErrors_FullMethodName = "/main.NormalizePyService/FirstSingularNoun_And_NoGrammaticalErrors"
 )
@@ -129,6 +130,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NormalizePyServiceClient interface {
+	NormalizeClassifier(ctx context.Context, in *NormalizeClassifierRequest, opts ...grpc.CallOption) (*NormalizeClassifierResponse, error)
 	GetDuplicates(ctx context.Context, in *DuplicateRequest, opts ...grpc.CallOption) (*DuplicateResponse, error)
 	FirstSingularNoun_And_NoGrammaticalErrors(ctx context.Context, in *FirstSingularNoun_And_NoGrammaticalErrorsRequest, opts ...grpc.CallOption) (*FirstSingularNoun_And_NoGrammaticalErrorsResponse, error)
 }
@@ -139,6 +141,16 @@ type normalizePyServiceClient struct {
 
 func NewNormalizePyServiceClient(cc grpc.ClientConnInterface) NormalizePyServiceClient {
 	return &normalizePyServiceClient{cc}
+}
+
+func (c *normalizePyServiceClient) NormalizeClassifier(ctx context.Context, in *NormalizeClassifierRequest, opts ...grpc.CallOption) (*NormalizeClassifierResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NormalizeClassifierResponse)
+	err := c.cc.Invoke(ctx, NormalizePyService_NormalizeClassifier_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *normalizePyServiceClient) GetDuplicates(ctx context.Context, in *DuplicateRequest, opts ...grpc.CallOption) (*DuplicateResponse, error) {
@@ -165,6 +177,7 @@ func (c *normalizePyServiceClient) FirstSingularNoun_And_NoGrammaticalErrors(ctx
 // All implementations must embed UnimplementedNormalizePyServiceServer
 // for forward compatibility.
 type NormalizePyServiceServer interface {
+	NormalizeClassifier(context.Context, *NormalizeClassifierRequest) (*NormalizeClassifierResponse, error)
 	GetDuplicates(context.Context, *DuplicateRequest) (*DuplicateResponse, error)
 	FirstSingularNoun_And_NoGrammaticalErrors(context.Context, *FirstSingularNoun_And_NoGrammaticalErrorsRequest) (*FirstSingularNoun_And_NoGrammaticalErrorsResponse, error)
 	mustEmbedUnimplementedNormalizePyServiceServer()
@@ -177,6 +190,9 @@ type NormalizePyServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedNormalizePyServiceServer struct{}
 
+func (UnimplementedNormalizePyServiceServer) NormalizeClassifier(context.Context, *NormalizeClassifierRequest) (*NormalizeClassifierResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NormalizeClassifier not implemented")
+}
 func (UnimplementedNormalizePyServiceServer) GetDuplicates(context.Context, *DuplicateRequest) (*DuplicateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDuplicates not implemented")
 }
@@ -202,6 +218,24 @@ func RegisterNormalizePyServiceServer(s grpc.ServiceRegistrar, srv NormalizePySe
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&NormalizePyService_ServiceDesc, srv)
+}
+
+func _NormalizePyService_NormalizeClassifier_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NormalizeClassifierRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NormalizePyServiceServer).NormalizeClassifier(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NormalizePyService_NormalizeClassifier_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NormalizePyServiceServer).NormalizeClassifier(ctx, req.(*NormalizeClassifierRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _NormalizePyService_GetDuplicates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -247,6 +281,10 @@ var NormalizePyService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "main.NormalizePyService",
 	HandlerType: (*NormalizePyServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "NormalizeClassifier",
+			Handler:    _NormalizePyService_NormalizeClassifier_Handler,
+		},
 		{
 			MethodName: "GetDuplicates",
 			Handler:    _NormalizePyService_GetDuplicates_Handler,
