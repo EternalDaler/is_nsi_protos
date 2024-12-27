@@ -19,8 +19,9 @@ message Rule {
 
 message RuleResult{
   uint32 rule_id = 1;
-  bool failed = 2;
-  string description = 3;
+  string rule_name = 2;
+  bool failed = 3;
+  string description = 4;
 }
 message RuleSummary{
   uint32 rule_id = 1;
