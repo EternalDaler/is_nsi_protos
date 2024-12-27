@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10proto/main.proto\x12\x04main\"2\n\x04Item\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x03 \x01(\t\"?\n\x04Rule\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0f\n\x07symbols\x18\x04 \x03(\t\"U\n\nRuleResult\x12\x0f\n\x07rule_id\x18\x01 \x01(\r\x12\x11\n\trule_name\x18\x02 \x01(\t\x12\x0e\n\x06\x66\x61iled\x18\x03 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"4\n\x0bRuleSummary\x12\x0f\n\x07rule_id\x18\x01 \x01(\r\x12\x14\n\x0c\x66\x61iled_count\x18\x02 \x01(\r\"j\n\x06Record\x12\n\n\x02id\x18\x01 \x01(\t\x12\x15\n\roriginal_name\x18\x02 \x01(\t\x12\x14\n\x0c\x63leaned_name\x18\x03 \x01(\t\x12\'\n\rrules_results\x18\x04 \x03(\x0b\x32\x10.main.RuleResult\"@\n\x07Summary\x12\x13\n\x0btotal_names\x18\x01 \x01(\r\x12 \n\x05rules\x18\x02 \x03(\x0b\x32\x11.main.RuleSummary\"H\n\x10NormalizeRequest\x12\x19\n\x05items\x18\x01 \x03(\x0b\x32\n.main.Item\x12\x19\n\x05rules\x18\x02 \x03(\x0b\x32\n.main.Rule\"R\n\x11NormalizeResponse\x12\x1d\n\x07records\x18\x01 \x03(\x0b\x32\x0c.main.Record\x12\x1e\n\x07summary\x18\x02 \x01(\x0b\x32\r.main.Summary\"-\n\x10\x44uplicateRequest\x12\x19\n\x05items\x18\x01 \x03(\x0b\x32\n.main.Item\"M\n\x11\x44uplicateResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x13\n\x0btotal_items\x18\x02 \x01(\x05\x12\x12\n\nduplicates\x18\x03 \x03(\t\"A\n\x0b\x44\x65scription\x12\x18\n\x10gram_morph_error\x18\x01 \x01(\t\x12\x18\n\x10\x66irst_noun_error\x18\x02 \x01(\t\"\xa5\x01\n1FirstSingularNoun_And_NoGrammaticalErrorsResponse\x12\x16\n\x0e\x63orrected_name\x18\x01 \x01(\t\x12\x17\n\x0fgram_morph_rule\x18\x02 \x01(\x08\x12\x17\n\x0f\x66irst_noun_rule\x18\x03 \x01(\x08\x12&\n\x0b\x64\x65scription\x18\x04 \x01(\x0b\x32\x11.main.Description\"@\n0FirstSingularNoun_And_NoGrammaticalErrorsRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"@\n\tCatalogue\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x19\n\x05items\x18\x03 \x03(\x0b\x32\n.main.Item\"K\n\nClassifier\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\ncatalogues\x18\x03 \x03(\x0b\x32\x0f.main.Catalogue\"\\\n\x1aNormalizeClassifierRequest\x12\x18\n\x04item\x18\x01 \x01(\x0b\x32\n.main.Item\x12$\n\nclassifier\x18\x02 \x01(\x0b\x32\x10.main.Classifier\"2\n\x1bNormalizeClassifierResponse\x12\x13\n\x0bsimilar_ids\x18\x01 \x03(\t\"3\n\x11GetSimilarRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x02 \x01(\t\"3\n\x12GetSimilarResponse\x12\r\n\x05okpds\x18\x01 \x03(\t\x12\x0e\n\x06okveds\x18\x02 \x03(\t2P\n\x10NormalizeService\x12<\n\tNormalize\x12\x16.main.NormalizeRequest\x1a\x17.main.NormalizeResponse2\xd1\x02\n\x12NormalizePyService\x12Z\n\x13NormalizeClassifier\x12 .main.NormalizeClassifierRequest\x1a!.main.NormalizeClassifierResponse\x12@\n\rGetDuplicates\x12\x16.main.DuplicateRequest\x1a\x17.main.DuplicateResponse\x12\x9c\x01\n)FirstSingularNoun_And_NoGrammaticalErrors\x12\x36.main.FirstSingularNoun_And_NoGrammaticalErrorsRequest\x1a\x37.main.FirstSingularNoun_And_NoGrammaticalErrorsResponse2N\n\x0bOkpdService\x12?\n\nGetSimilar\x12\x17.main.GetSimilarRequest\x1a\x18.main.GetSimilarResponseB\x06Z\x04/apib\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10proto/main.proto\x12\x04main\"2\n\x04Item\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x03 \x01(\t\"?\n\x04Rule\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0f\n\x07symbols\x18\x04 \x03(\t\"U\n\nRuleResult\x12\x0f\n\x07rule_id\x18\x01 \x01(\r\x12\x11\n\trule_name\x18\x02 \x01(\t\x12\x0e\n\x06\x66\x61iled\x18\x03 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"G\n\x0bRuleSummary\x12\x0f\n\x07rule_id\x18\x01 \x01(\r\x12\x11\n\trule_name\x18\x02 \x01(\t\x12\x14\n\x0c\x66\x61iled_count\x18\x03 \x01(\r\"j\n\x06Record\x12\n\n\x02id\x18\x01 \x01(\t\x12\x15\n\roriginal_name\x18\x02 \x01(\t\x12\x14\n\x0c\x63leaned_name\x18\x03 \x01(\t\x12\'\n\rrules_results\x18\x04 \x03(\x0b\x32\x10.main.RuleResult\"@\n\x07Summary\x12\x13\n\x0btotal_names\x18\x01 \x01(\r\x12 \n\x05rules\x18\x02 \x03(\x0b\x32\x11.main.RuleSummary\"H\n\x10NormalizeRequest\x12\x19\n\x05items\x18\x01 \x03(\x0b\x32\n.main.Item\x12\x19\n\x05rules\x18\x02 \x03(\x0b\x32\n.main.Rule\"R\n\x11NormalizeResponse\x12\x1d\n\x07records\x18\x01 \x03(\x0b\x32\x0c.main.Record\x12\x1e\n\x07summary\x18\x02 \x01(\x0b\x32\r.main.Summary\"-\n\x10\x44uplicateRequest\x12\x19\n\x05items\x18\x01 \x03(\x0b\x32\n.main.Item\"M\n\x11\x44uplicateResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x13\n\x0btotal_items\x18\x02 \x01(\x05\x12\x12\n\nduplicates\x18\x03 \x03(\t\"A\n\x0b\x44\x65scription\x12\x18\n\x10gram_morph_error\x18\x01 \x01(\t\x12\x18\n\x10\x66irst_noun_error\x18\x02 \x01(\t\"\xa5\x01\n1FirstSingularNoun_And_NoGrammaticalErrorsResponse\x12\x16\n\x0e\x63orrected_name\x18\x01 \x01(\t\x12\x17\n\x0fgram_morph_rule\x18\x02 \x01(\x08\x12\x17\n\x0f\x66irst_noun_rule\x18\x03 \x01(\x08\x12&\n\x0b\x64\x65scription\x18\x04 \x01(\x0b\x32\x11.main.Description\"@\n0FirstSingularNoun_And_NoGrammaticalErrorsRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"@\n\tCatalogue\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x19\n\x05items\x18\x03 \x03(\x0b\x32\n.main.Item\"K\n\nClassifier\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12#\n\ncatalogues\x18\x03 \x03(\x0b\x32\x0f.main.Catalogue\"\\\n\x1aNormalizeClassifierRequest\x12\x18\n\x04item\x18\x01 \x01(\x0b\x32\n.main.Item\x12$\n\nclassifier\x18\x02 \x01(\x0b\x32\x10.main.Classifier\"2\n\x1bNormalizeClassifierResponse\x12\x13\n\x0bsimilar_ids\x18\x01 \x03(\t\"3\n\x11GetSimilarRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x02 \x01(\t\"3\n\x12GetSimilarResponse\x12\r\n\x05okpds\x18\x01 \x03(\t\x12\x0e\n\x06okveds\x18\x02 \x03(\t2P\n\x10NormalizeService\x12<\n\tNormalize\x12\x16.main.NormalizeRequest\x1a\x17.main.NormalizeResponse2\xd1\x02\n\x12NormalizePyService\x12Z\n\x13NormalizeClassifier\x12 .main.NormalizeClassifierRequest\x1a!.main.NormalizeClassifierResponse\x12@\n\rGetDuplicates\x12\x16.main.DuplicateRequest\x1a\x17.main.DuplicateResponse\x12\x9c\x01\n)FirstSingularNoun_And_NoGrammaticalErrors\x12\x36.main.FirstSingularNoun_And_NoGrammaticalErrorsRequest\x1a\x37.main.FirstSingularNoun_And_NoGrammaticalErrorsResponse2N\n\x0bOkpdService\x12?\n\nGetSimilar\x12\x17.main.GetSimilarRequest\x1a\x18.main.GetSimilarResponseB\x06Z\x04/apib\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'proto.main_pb2', globals())
@@ -28,41 +28,41 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _RULERESULT._serialized_start=143
   _RULERESULT._serialized_end=228
   _RULESUMMARY._serialized_start=230
-  _RULESUMMARY._serialized_end=282
-  _RECORD._serialized_start=284
-  _RECORD._serialized_end=390
-  _SUMMARY._serialized_start=392
-  _SUMMARY._serialized_end=456
-  _NORMALIZEREQUEST._serialized_start=458
-  _NORMALIZEREQUEST._serialized_end=530
-  _NORMALIZERESPONSE._serialized_start=532
-  _NORMALIZERESPONSE._serialized_end=614
-  _DUPLICATEREQUEST._serialized_start=616
-  _DUPLICATEREQUEST._serialized_end=661
-  _DUPLICATERESPONSE._serialized_start=663
-  _DUPLICATERESPONSE._serialized_end=740
-  _DESCRIPTION._serialized_start=742
-  _DESCRIPTION._serialized_end=807
-  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSRESPONSE._serialized_start=810
-  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSRESPONSE._serialized_end=975
-  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSREQUEST._serialized_start=977
-  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSREQUEST._serialized_end=1041
-  _CATALOGUE._serialized_start=1043
-  _CATALOGUE._serialized_end=1107
-  _CLASSIFIER._serialized_start=1109
-  _CLASSIFIER._serialized_end=1184
-  _NORMALIZECLASSIFIERREQUEST._serialized_start=1186
-  _NORMALIZECLASSIFIERREQUEST._serialized_end=1278
-  _NORMALIZECLASSIFIERRESPONSE._serialized_start=1280
-  _NORMALIZECLASSIFIERRESPONSE._serialized_end=1330
-  _GETSIMILARREQUEST._serialized_start=1332
-  _GETSIMILARREQUEST._serialized_end=1383
-  _GETSIMILARRESPONSE._serialized_start=1385
-  _GETSIMILARRESPONSE._serialized_end=1436
-  _NORMALIZESERVICE._serialized_start=1438
-  _NORMALIZESERVICE._serialized_end=1518
-  _NORMALIZEPYSERVICE._serialized_start=1521
-  _NORMALIZEPYSERVICE._serialized_end=1858
-  _OKPDSERVICE._serialized_start=1860
-  _OKPDSERVICE._serialized_end=1938
+  _RULESUMMARY._serialized_end=301
+  _RECORD._serialized_start=303
+  _RECORD._serialized_end=409
+  _SUMMARY._serialized_start=411
+  _SUMMARY._serialized_end=475
+  _NORMALIZEREQUEST._serialized_start=477
+  _NORMALIZEREQUEST._serialized_end=549
+  _NORMALIZERESPONSE._serialized_start=551
+  _NORMALIZERESPONSE._serialized_end=633
+  _DUPLICATEREQUEST._serialized_start=635
+  _DUPLICATEREQUEST._serialized_end=680
+  _DUPLICATERESPONSE._serialized_start=682
+  _DUPLICATERESPONSE._serialized_end=759
+  _DESCRIPTION._serialized_start=761
+  _DESCRIPTION._serialized_end=826
+  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSRESPONSE._serialized_start=829
+  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSRESPONSE._serialized_end=994
+  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSREQUEST._serialized_start=996
+  _FIRSTSINGULARNOUN_AND_NOGRAMMATICALERRORSREQUEST._serialized_end=1060
+  _CATALOGUE._serialized_start=1062
+  _CATALOGUE._serialized_end=1126
+  _CLASSIFIER._serialized_start=1128
+  _CLASSIFIER._serialized_end=1203
+  _NORMALIZECLASSIFIERREQUEST._serialized_start=1205
+  _NORMALIZECLASSIFIERREQUEST._serialized_end=1297
+  _NORMALIZECLASSIFIERRESPONSE._serialized_start=1299
+  _NORMALIZECLASSIFIERRESPONSE._serialized_end=1349
+  _GETSIMILARREQUEST._serialized_start=1351
+  _GETSIMILARREQUEST._serialized_end=1402
+  _GETSIMILARRESPONSE._serialized_start=1404
+  _GETSIMILARRESPONSE._serialized_end=1455
+  _NORMALIZESERVICE._serialized_start=1457
+  _NORMALIZESERVICE._serialized_end=1537
+  _NORMALIZEPYSERVICE._serialized_start=1540
+  _NORMALIZEPYSERVICE._serialized_end=1877
+  _OKPDSERVICE._serialized_start=1879
+  _OKPDSERVICE._serialized_end=1957
 # @@protoc_insertion_point(module_scope)

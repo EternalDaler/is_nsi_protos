@@ -25,7 +25,8 @@ message RuleResult{
 }
 message RuleSummary{
   uint32 rule_id = 1;
-  uint32 failed_count = 2;
+  string rule_name = 2;
+  uint32 failed_count = 3;
 }
 
 message Record{
